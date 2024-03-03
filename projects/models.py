@@ -6,9 +6,12 @@ class Category(models.Model):
     name = models.CharField(max_length=255)
 
     def __str__(self):
-        return self.name
+        return self.name #الهدف منها إتاحة استخدام الإسم كسلسلة نصية
 
 class ProjectStatus(models.IntegerChoices):
+    #الحروف الكبيرة أستخدمها هنا في البرمجة 
+    #الأرقام تتعامل معها قاعدة البيانات
+    # الحروف الصغيرة تظهر في التطبيق
     PENDING = 1, 'pending'
     COMPLETED = 2, 'completed'
     POSTPONED = 3, 'postponed'
@@ -23,11 +26,16 @@ class Project(models.Model):
         choices=ProjectStatus.choices,
         default=ProjectStatus.PENDING
     )
+    #العلاقات مع الكيانات الأخرى:
     category = models.ForeignKey(Category, on_delete=models.PROTECT)
     user = models.ForeignKey(
         AUTH_USER_MODEL,
-        on_delete=models.CASCADE
+        on_delete=models.CASCADE,
+        null =True
+        
+        
     )
+
     def __str__(self):
         return self.title
 
