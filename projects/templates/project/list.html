@@ -1,13 +1,15 @@
 {% load i18n %}
 {% block content %}
 
-    <h1>{% trans 'My Poject' %}</h1>
+    <h1>{% trans 'My Pojects' %}</h1>
+    
 
     <ul>
 
         {% for project in object_list %}
 
-            <li>{{ project.title }}</li>
+        <li>{{ project.title }} <a href="{% url 'project_update' project.id %}">edit</a></li>
+            
 
         {% empty %}
 
@@ -17,5 +19,6 @@
 
     
     </ul>
+
 
 {% endblock %}

@@ -1,6 +1,6 @@
 from django.shortcuts import render
-from django.views.generic import ListView, CreateView #نستخدم listview لعرض المشاريع
-from django.urls import reverse_lazy
+from django.views.generic import ListView, CreateView, UpdateView, DeleteView #نستخدم listview لعرض المشاريع
+from django.urls import reverse_lazy, reverse
 from . import models
 from . import forms
 # Create your views here.
@@ -10,6 +10,7 @@ class ProjectListView(ListView):
 
 #نحن متفقين ان العروض هي حلقة الوصل بين المودلز والقوالب، لذا هنا ننشئ عرض
 #يخبر المتصفح ماذا سيعرض 
+
 class ProjectCreatView(CreateView):
     model = models.Project
     form_class = forms.ProjectCreateForm
@@ -18,3 +19,44 @@ class ProjectCreatView(CreateView):
 
 
 
+class ProjectUpdateView(UpdateView):
+    model = models.Project
+    form_class = forms.ProjectUpdateForm
+    template_name = 'project/Update.html'
+    
+    def get_success_url(self) -> str:
+        return reverse('project_update', args=[self.object.id])
+
+
+
+class ProjectDeleteView(DeleteView):
+    model = models.Project
+    template_name = 'project/delete.html'
+
+    success_url = reverse_lazy('project_List')
+
+
+
+
+class TaskCreatView(CreateView):
+    model = models.Task
+    fields= ['project', 'description']
+    http_method_names = ['post']
+    def get_success_url(self) -> str:
+        return reverse('project_update', args=[self.object.project.id])
+    
+
+
+class TaskUpdateView(UpdateView):
+    model = models.Task
+    fields= ['is_completed']
+    http_method_names = ['post']
+
+    def get_success_url(self) -> str:
+        return reverse('project_update', args=[self.object.project.id])
+
+class TaskDeleteView(DeleteView):
+    model = models.Task
+
+    def get_success_url(self) -> str:
+        return reverse('project_update', args=[self.object.project.id])

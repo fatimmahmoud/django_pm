@@ -30,10 +30,8 @@ class Project(models.Model):
     category = models.ForeignKey(Category, on_delete=models.PROTECT)
     user = models.ForeignKey(
         AUTH_USER_MODEL,
-        on_delete=models.CASCADE,
-        null =True
-        
-        
+        on_delete = models.CASCADE,
+        null =True,   
     )
 
     def __str__(self):
@@ -42,6 +40,7 @@ class Project(models.Model):
 class Task(models.Model):
     description = models.TextField()
     is_completed = models.BooleanField(default=False)
+    project = models.ForeignKey(Project, on_delete=models.CASCADE, default=1)
 
     def __str__(self):
         return self.description
