@@ -1,0 +1,35 @@
+{% comment %} حلقة لطباعة الأخطاء، والأخطاء نوعين:
+    field errors
+    non field errors
+{% endcomment %}
+
+<ul>
+    {% for error in form.non_field_errors %}
+    <li class="list-group-item list-group-item-danger">{{ error|escape}} </li>
+    {% endfor %}
+
+    {% for field in form %}
+        {% for error in field.errors %}
+            <li class="list-group-item list-group-item-danger">{{ error|escape}} </li>
+        {% endfor %}
+    {% endfor %}
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+{% comment %} حلقة لطباعة حقول الفورم {% endcomment %}
+{% for field in form %}
+
+    <div>
+        <label class="form-label"> {{ field.label }}</label>
+        {{ field }}
+    </div>
+{% endfor %}
