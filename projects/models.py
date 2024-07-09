@@ -1,5 +1,6 @@
 from django.db import models
 from django.conf.global_settings import AUTH_USER_MODEL
+from django.utils.translation import gettext as _
 # Create your models here.
 
 class Category(models.Model):
@@ -12,10 +13,10 @@ class ProjectStatus(models.IntegerChoices):
     #الحروف الكبيرة أستخدمها هنا في البرمجة 
     #الأرقام تتعامل معها قاعدة البيانات
     # الحروف الصغيرة تظهر في التطبيق
-    PENDING = 1, 'pending'
-    COMPLETED = 2, 'completed'
-    POSTPONED = 3, 'postponed'
-    CANCELED = 4, 'canceled'
+    PENDING = 1, _('Pending')
+    COMPLETED = 2, _('Completed')
+    POSTPONED = 3, _('Postponed')
+    CANCELED = 4, _('Canceled')
 
 class Project(models.Model):
     title = models.CharField(max_length=255)
