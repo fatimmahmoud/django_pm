@@ -17,6 +17,14 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
+
+from django.utils.translation import gettext as _
+
+
+admin.site.site_header = _('Projects Management')
+admin.site.site_title = _('Projects Management')
+
+
 urlpatterns = [
     path('', include('projects.urls')),
     path('accounts/', include('accounts.urls')),
